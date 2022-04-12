@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rainbow!!!</title>
+	<link rel="stylesheet" type="text/css" href="rainbow.css">
+</head>
+<body>
+	<div class = "rainbow" style = "height:100%">
+		<table cellpadding="0" cellspacing="0">
+			<tbody><tr>
+			<script type="text/javascript">
+				function getRandomInt(max) {
+					return Math.floor(Math.random() * Math.floor(max));
+				}
+				
+				function hexDigit(){
+					digit = getRandomInt(16);
+					if (digit == 10)
+						return 'A';
+					else if (digit == 11)
+						return 'B';
+					else if (digit == 12)
+						return 'C';
+					else if (digit == 13)
+						return 'D';
+					else if (digit == 14)
+						return 'E';
+					else if (digit == 15)
+						return 'F';
+					else
+						return digit.toString();
+				}
+				
+				function color(){
+					var hex = "#";
+					for (var i = 0; i < 6; i++)
+					{
+						hex += hexDigit();
+					}
+					return hex;
+				}
+				
+				var n = 300;
+				
+				function changeColor(loc){
+						var stroke = 2;
+						num = Number(loc);
+						var dummy = 0;
+						for (var i = 0; i < stroke; i++){
+							for (var j = 0; j < stroke; j++){
+								dummy = num - i + j*n;
+								if (dummy >= 0 && dummy < n*n && (num % n) > ((num-i) % n))
+									document.getElementById(dummy.toString()).style.background = color();
+								dummy = num + i - j*n;
+								if (dummy >= 0 && dummy < n*n  && (num % n) < ((num+i) % n))
+									document.getElementById(dummy.toString()).style.background = color();
+								dummy = num - n*i - j;
+								if (dummy >= 0 && dummy < n*n)
+									document.getElementById(dummy.toString()).style.background = color();
+								dummy = num + n*i + j;
+								if (dummy >= 0 && dummy < n*n)
+									document.getElementById(dummy.toString()).style.background = color();
+							}
+						}
+						document.getElementById(loc).style.background = color();						
+				}
+				
+				var mytable = "";
+
+				for (var i = 0; i < n*n; i++) {
+				  
+				  if (i % n == 0 && i != 0) {
+					mytable += "</tr><tr>";
+				  }
+				  mytable += "<td id=\""+i.toString()+"\" bgcolor=\"#FFFFFF\" onmousemove=\"changeColor("+i.toString()+")\"></td>";
+				}
+				document.write(mytable);
+			</script>
+			</tr></tbody>
+		</table>
+	</div>
+</body>
+</html>
